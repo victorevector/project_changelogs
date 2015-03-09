@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>"{{project.name}}" Changelog</title>
+        <style type='text/css'>
+
+            body {
+                font-family: helvetica;
+            }
+
+            a {
+                text-decoration: none;
+                font-size: 75%;
+                margin-left: 1%;
+            }
+
+            a:visited {
+                color: #000;
+            }
+
+            a:hover {
+                color: #00FF00;
+            }
+
+            table {
+                margin: 2% 10% 2% 2%;
+            }
+            #date{
+                width: 15%;
+                vertical-align: text-top;
+            }
+            #date p{
+                font-size: 110%; 
+                text-align: right;
+                padding-right: 10%;           
+            }
+
+            #log {
+                vertical-align: text-top; 
+            }
+            #log p{
+                font-size: 100%; 
+            }
+
+
+        </style>
+    </head>
+
+    <body>
+        <a href='{% url 'index' %}'>(projects)</a>
+        <br>
+        {% if user.is_authenticated %}
+            <!-- <a href='/changelogs/project/{{project.slug}}/addlog/'>(addlog)</a> -->
+            <a href='{% url 'addlog' project.slug %}'>(addlog)</a>
+            <br>
+            <a href='{% url 'userlogout' %}'>(logout)</a>
+        {% else %}
+            <a href='{% url 'userlogin' %}'>(login)</a>
+        {% endif %}
+
+        <table>
+            {% for log in logs %}
+            <tr>
+                <td id='date'><p>{{log.date}}</p></td>
+                <td id='log'><p>{{log.log|safe}}</p></td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Projects by victorEvector</title>
+        <style type='text/css'>
+            body {
+                font-family: helvetica;
+            }
+            h1 {
+                margin-left: 2%;
+            }
+            ul {
+                list-style-type: none;
+            }
+            ul li {
+                margin: 2% 2% 2.5% 1%;
+            }
+            a {
+                text-decoration: none;
+            }
+            a:visited {
+                color: #000;
+            }
+
+            a:hover {
+                color: #00FF00;
+            }
+            #loginout {
+                font-size: 75%;
+                margin-left: 2%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1> Project Changelogs:</h1>
+        {% if projects %}
+        <ul>
+            {% for project in projects %}
+                <!-- <li><a href="changelogs/project/{{project.slug}}">{{project.name}}</a></li> -->
+                <li><a href='{% url 'changelog' project.slug %}'>{{project.name}}</a></li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <strong>There are no projects present</strong>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+            <a id='loginout' href='{% url 'userlogout' %}' >(logout)</a>
+        {% else %}
+            <a id='loginout' href='{% url 'userlogin' %}' >(login)</a>
+        {% endif %}
+    </body>
+</html>
